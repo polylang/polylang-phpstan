@@ -3,7 +3,10 @@ services:
 		class: WPSyntex\Polylang\PHPStan\LanguageReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
-			
+
+includes:
+	- ../../szepeviktor/phpstan-wordpress/extension.neon
+
 parameters:
 	bootstrapFiles:
 		- bootstrap.php
