@@ -1,0 +1,22 @@
+services:
+	-
+		class: WPSyntex\Polylang\PHPStan\LanguageReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+	-
+		class: WPSyntex\Polylang\PHPStan\LanguagesListReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+	-
+		class: WPSyntex\Polylang\PHPStan\TheLanguagesReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+parameters:
+	bootstrapFiles:
+		- bootstrap.php
+	dynamicConstantNames:
+		- POLYLANG_VERSION
+		- PLL_ADMIN
+		- PLL_SETTINGS
+

@@ -1,0 +1,18 @@
+{
+	"name": "wpsyntex/polylang-phpstan",
+	"description": "Polylang extension for PHPStan",
+	"license": "GPL-3.0-or-later",
+	"homepage": "https://polylang.pro",
+	"type": "library",
+	"require": {
+		"szepeviktor/phpstan-wordpress": "^0.7"
+	},
+	"autoload": {
+		"psr-4": {
+			"WPSyntex\\Polylang\\PHPStan\\": "src/"
+		}
+	},
+	"suggest": {
+		"wpsyntex/polylang-stubs": "Stubs for Polylang and Polylang Pro"
+	}
+}
