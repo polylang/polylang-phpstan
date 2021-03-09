@@ -22,8 +22,8 @@ Include the extension and stubs in the PHPStan configuration file.
 
 ```yaml
 includes:
-	- vendor/wpsyntex/polylang-phpstan/extension.neon
+  - vendor/wpsyntex/polylang-phpstan/extension.neon
 parameters:
-	bootstrapFiles:
-		- vendor/wpsyntex/polylang-stubs/polylang-stubs.php
+  bootstrapFiles:
+    - vendor/wpsyntex/polylang-stubs/polylang-stubs.php
 ```
