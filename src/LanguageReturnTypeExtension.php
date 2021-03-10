@@ -17,8 +17,7 @@ class LanguageReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturn
 	}
 
 	public function getTypeFromFunctionCall( FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope ) : Type {
-		$argsCount = count( $functionCall->args );
-		if ( $argsCount === 0 || 'OBJECT' !== $functionCall->args[0]->value ) {
+		if ( [] === $functionCall->args || 'OBJECT' !== $functionCall->args[0]->value ) {
 			return TypeCombinator::union( new StringType(), new ConstantBooleanType( false ) );
 		}
 
