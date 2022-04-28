@@ -12,15 +12,12 @@ services:
 		tags:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
 
-includes:
-	- %rootDir%/../../szepeviktor/phpstan-wordpress/extension.neon
-
 parameters:
 	bootstrapFiles:
-		- %rootDir%/../wpsyntex/polylang-stubs/polylang-stubs.php
+		- %rootDir%/../../php-stubs/wordpress-stubs/wordpress-stubs.php
+		- %rootDir%/../../wpsyntex/polylang-stubs/polylang-stubs.php
 		- bootstrap.php
 	dynamicConstantNames:
 		- POLYLANG_VERSION
 		- PLL_ADMIN
 		- PLL_SETTINGS
-
