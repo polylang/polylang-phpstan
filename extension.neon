@@ -13,7 +13,7 @@ services:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
 
 includes:
-	- vendor/szepeviktor/phpstan-wordpress/extension.neon
+	- %currentWorkingDirectory%/vendor/szepeviktor/phpstan-wordpress/extension.neon
 
 parameters:
 	bootstrapFiles:
