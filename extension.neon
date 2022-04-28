@@ -17,7 +17,7 @@ includes:
 
 parameters:
 	bootstrapFiles:
-		- %rootDir%/../../wpsyntex/polylang-stubs/polylang-stubs.php
+		- %rootDir%/../wpsyntex/polylang-stubs/polylang-stubs.php
 		- bootstrap.php
 	dynamicConstantNames:
 		- POLYLANG_VERSION
