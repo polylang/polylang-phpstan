@@ -7,6 +7,9 @@
 	"require": {
 		"szepeviktor/phpstan-wordpress": "^1.0"
 	},
+	"require-dev": {
+		"phpunit/phpunit": "^7 || ^9"
+	},
 	"autoload": {
 		"psr-4": {
 			"WPSyntex\\Polylang\\PHPStan\\": "src/"
@@ -14,5 +17,8 @@
 	},
 	"suggest": {
 		"wpsyntex/polylang-stubs": "Stubs for Polylang and Polylang Pro"
+	},
+	"scripts": {
+		"test":"vendor/bin/phpunit"
 	}
 }
