@@ -25,7 +25,7 @@ use PHPStan\Type\UnionType;
 use PLL_Language;
 use PLL_Model;
 
-class PLLModelgetLanguagesListDynamicMethodReturnTypeExtension implements DynamicMethodReturnTypeExtension {
+class PLLModelGetLanguagesListDynamicMethodReturnTypeExtension implements DynamicMethodReturnTypeExtension {
 	public function getClass(): string {
 		return PLL_Model::class;
 	}
