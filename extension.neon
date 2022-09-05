@@ -8,6 +8,10 @@ services:
 		tags:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
 	-
+		class: WPSyntex\Polylang\PHPStan\PllTheLanguagesReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+	-
 		class: WPSyntex\Polylang\PHPStan\PLLModelGetLanguagesListDynamicMethodReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicMethodReturnTypeExtension

@@ -13,6 +13,7 @@ class DynamicReturnTypeExtensionTest extends \PHPStan\Testing\TypeInferenceTestC
 	{
 		// Path to a file with actual asserts of expected types:
 		yield from $this->gatherAssertTypes(__DIR__ . '/data/the_languages.php');
+		yield from $this->gatherAssertTypes(__DIR__ . '/data/pll_the_languages.php');
 	}
 
 	/**
@@ -27,6 +28,6 @@ class DynamicReturnTypeExtensionTest extends \PHPStan\Testing\TypeInferenceTestC
 	public static function getAdditionalConfigFiles(): array
 	{
 		// path to your project's phpstan.neon, or extension.neon in case of custom extension packages
-		return [__DIR__ . '/../extension.neon'];
+		return [dirname(__DIR__) . '/vendor/wpsyntex/polylang-phpstan/extension.neon'];
 	}
 }

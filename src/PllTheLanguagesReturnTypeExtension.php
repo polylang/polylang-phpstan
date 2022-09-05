@@ -5,39 +5,34 @@ namespace WPSyntex\Polylang\PHPStan;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar;
-use PHPStan\Type\DynamicMethodReturnTypeExtension;
+use PhpParser\Node\Expr\FuncCall;
+use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Type\DynamicFunctionReturnTypeExtension;
 use PHPStan\Reflection\ParametersAcceptorSelector;
-use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\Type;
 use PHPStan\Type\StringType;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\MixedType;
 
-class SwitcherClassReturnTypeExtension implements DynamicMethodReturnTypeExtension {
-	public function getClass(): string
+class PllTheLanguagesReturnTypeExtension implements DynamicFunctionReturnTypeExtension {
+	public function isFunctionSupported(FunctionReflection $functionReflection): bool
 	{
-		return \PLL_Switcher::class;
+		return $functionReflection->getName() === 'pll_the_languages';
 	}
 
-	public function isMethodSupported(MethodReflection $methodReflection): bool
+	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $funcCall, Scope $scope): Type
 	{
-		return $methodReflection->getName() === 'the_languages';
-	}
-
-	public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type
-	{
-		if (count($methodCall->getArgs()) === 0) {
+		if (count($funcCall->getArgs()) === 0) {
 			return ParametersAcceptorSelector::selectFromArgs(
 				$scope,
-				$methodCall->getArgs(),
-				$methodReflection->getVariants()
+				$funcCall->getArgs(),
+				$functionReflection->getVariants()
 			)->getReturnType();
 		}
 		$args = [];
-		if (isset($methodCall->getArgs()[1]) ) {
-			$args = $methodCall->getArgs()[1]->value;
+		if (isset($funcCall->getArgs()[1]) ) {
+			$args = $funcCall->getArgs()[1]->value;
 		}
 		$isRawSwitcher = false;
 		foreach ($args as $arg) {
