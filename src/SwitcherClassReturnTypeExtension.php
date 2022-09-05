@@ -2,7 +2,10 @@
 
 namespace WPSyntex\Polylang\PHPStan;
 
+use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Expr\CallLike;
+use PhpParser\Node\Scalar;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PhpParser\Node\Expr\MethodCall;
@@ -33,7 +36,10 @@ class SwitcherClassReturnTypeExtension implements DynamicMethodReturnTypeExtensi
 				$methodReflection->getVariants()
 			)->getReturnType();
 		}
-		$args = $methodCall->getArgs()[1]->value;
+		$args = [];
+		if ($methodCall instanceof MethodCall && isset($methodCall->getArgs()[1]) ) {
+			$args = $methodCall->getArgs()[1]->value;
+		}
 		$isRawSwitcher = false;
 		foreach ($args as $arg) {
 			if (is_array($arg)) {
@@ -44,7 +50,15 @@ class SwitcherClassReturnTypeExtension implements DynamicMethodReturnTypeExtensi
 						if ($key === 'raw' && $value === 'true') {
 							$isRawSwitcher = true;
 						}
-					} else {
+					} elseif ($argPart->value instanceof Array_)  {
+						foreach ($argPart->value->items as $arrayItem) {
+							$key = $arrayItem->key->value;
+							$value = $arrayItem->value->name->parts[0];
+							if ($key === 'raw' && $value === 'true') {
+								$isRawSwitcher = true;
+							}
+						}
+					} elseif ($argPart instanceof Scalar) {
 						$argvalue = $argPart->value;
 						$items = $argvalue->items;
 						if (! empty($items) && is_array($items)) {
