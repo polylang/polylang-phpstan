@@ -11,7 +11,8 @@ services:
 		class: WPSyntex\Polylang\PHPStan\PLLModelGetLanguagesListDynamicMethodReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
-
+includes:
+	- ../../szepeviktor/phpstan-wordpress/extension.neon
 parameters:
 	bootstrapFiles:
 		- %rootDir%/../../php-stubs/wordpress-stubs/wordpress-stubs.php
