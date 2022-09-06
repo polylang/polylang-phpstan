@@ -41,3 +41,7 @@ assertType('array<string, mixed>|string', pll_the_languages($link, $array));
 // With unkown variable merged.
 $args = array_merge( array( 'raw' => 1 ), $options );
 assertType('array<string, mixed>|string', pll_the_languages($link, $args));
+
+// With raw attribute set to true outside.
+$array['raw'] = 1;
+assertType('array<string, mixed>', pll_the_languages($link, $array));

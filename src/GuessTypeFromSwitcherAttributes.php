@@ -8,6 +8,8 @@ use PHPStan\Analyser\Scope;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
 use PHPStan\Type\Constant\ConstantArrayType;
+use \PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\IntersectionType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\MixedType;
@@ -34,10 +36,19 @@ trait GuessTypeFromSwitcherAttributes {
 			$argsKeys   = [];
 			$argsValues = [];
 
-			// Can't handle other types for the moment (e.g. IntersectionType).
 			if ($argsType instanceof ArrayType) {
 				$argsKeys   = $argsType->getKeysArray();
 				$argsValues = $argsType->getValuesArray();
+			}
+
+			if ($argsType instanceof IntersectionType && $argsType->isIterable()) {
+				$types = $argsType->getTypes();
+				// Let's look into each types to see if it contains 'raw' key.
+				foreach($types as $type) {
+					if ($type->hasOffsetValueType(new ConstantStringType('raw'))->yes() ) {
+						$isRaw = $type->getOffsetValueType(new ConstantStringType('raw'))->getValue() ? TrinaryLogic::createYes() : TrinaryLogic::createNo();
+					}
+				}
 			}
 
 			if ($argsKeys instanceof ConstantArrayType) {
