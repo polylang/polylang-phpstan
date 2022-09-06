@@ -34,6 +34,7 @@ trait GuessTypeFromSwitcherAttributes {
 			$argsKeys   = [];
 			$argsValues = [];
 
+			// Can't handle other types for the moment (e.g. IntersectionType).
 			if ($argsType instanceof ArrayType) {
 				$argsKeys   = $argsType->getKeysArray();
 				$argsValues = $argsType->getValuesArray();
