@@ -32,10 +32,15 @@ assertType('string', $switcher->the_languages($link, array_merge($attributes, ['
 // Without raw set.
 assertType('string', $switcher->the_languages($link, $attributes));
 
+// With empty array.
+assertType('string', $switcher->the_languages($link, []));
+
 // Default attributes.
 assertType('string', $switcher->the_languages($link));
 
 // Unkown attributes.
 assertType('array<string, mixed>|string', $switcher->the_languages($link, $array));
 
-
+// With unkown variable merged.
+$args = array_merge( array( 'raw' => 1 ), $options );
+assertType('array<string, mixed>|string', $switcher->the_languages($link, $args));
