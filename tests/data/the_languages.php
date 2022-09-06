@@ -12,24 +12,30 @@ $switcher = $switcher;
 /** @var \PLL_Links */
 $link = $link;
 
-$attritubtes = [];
+/** @var array */
+$array = $array;
+
+$attributes = ['foo' => 'bar'];
 
 // Raw attribute set to true.
 assertType('array<string, mixed>', $switcher->the_languages($link, ['raw' => true]));
 
 // Raw attribute set tot true with array_merge.
-assertType('array<string, mixed>', $switcher->the_languages($link, array_merge($attritubtes, ['raw' => true])));
+assertType('array<string, mixed>', $switcher->the_languages($link, array_merge($attributes, ['raw' => true])));
 
 // Raw attribute set to false.
 assertType('string', $switcher->the_languages($link, ['raw' => false]));
 
-// Raw attribute set tot false with array_merge.
-assertType('string', $switcher->the_languages($link, array_merge($attritubtes, ['raw' => false])));
+// Raw attribute set to false with array_merge.
+assertType('string', $switcher->the_languages($link, array_merge($attributes, ['raw' => false])));
 
 // Without raw set.
-assertType('string', $switcher->the_languages($link, $attritubtes));
+assertType('string', $switcher->the_languages($link, $attributes));
 
 // Default attributes.
 assertType('string', $switcher->the_languages($link));
+
+// Unkown attributes.
+assertType('array<string, mixed>|string', $switcher->the_languages($link, $array));
 
 

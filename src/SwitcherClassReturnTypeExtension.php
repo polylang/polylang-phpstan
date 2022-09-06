@@ -2,18 +2,20 @@
 
 namespace WPSyntex\Polylang\PHPStan;
 
-use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayItem;
-use PhpParser\Node\Scalar;
+use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Reflection\ParametersAcceptorSelector;
-use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Type;
 use PHPStan\Type\StringType;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\TypeCombinator;
 
 class SwitcherClassReturnTypeExtension implements DynamicMethodReturnTypeExtension {
 	public function getClass(): string
@@ -26,7 +28,7 @@ class SwitcherClassReturnTypeExtension implements DynamicMethodReturnTypeExtensi
 		return $methodReflection->getName() === 'the_languages';
 	}
 
-	public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type
+	public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): ?Type
 	{
 		if (count($methodCall->getArgs()) === 0) {
 			return ParametersAcceptorSelector::selectFromArgs(
@@ -39,45 +41,51 @@ class SwitcherClassReturnTypeExtension implements DynamicMethodReturnTypeExtensi
 		if (isset($methodCall->getArgs()[1]) ) {
 			$args = $methodCall->getArgs()[1]->value;
 		}
-		$isRawSwitcher = false;
-		foreach ($args as $arg) {
-			if (is_array($arg)) {
-				foreach ($arg as $argPart) {
-					if ($argPart instanceof ArrayItem) {
-						$key = $argPart->key->value;
-						$value = $argPart->value->name->parts[0];
-						if ($key === 'raw' && $value === 'true') {
-							$isRawSwitcher = true;
-						}
-					} elseif ($argPart->value instanceof Array_)  {
-						foreach ($argPart->value->items as $arrayItem) {
-							$key = $arrayItem->key->value;
-							$value = $arrayItem->value->name->parts[0];
-							if ($key === 'raw' && $value === 'true') {
-								$isRawSwitcher = true;
-							}
-						}
-					} elseif ($argPart instanceof Scalar) {
-						$argvalue = $argPart->value;
-						$items = $argvalue->items;
-						if (! empty($items) && is_array($items)) {
-							foreach ($items as $item) {
-								$key = $item->key->value;
-								$value = $item->value->name->parts[0];
-								if ($key === 'raw' && $value === 'true') {
-									$isRawSwitcher = true;
-									break;
-								}
-							}
-						}
+		$isRaw      = TrinaryLogic::createMaybe();
+		if ($args instanceof Expr) {
+			$argsKeys   = $scope->getType($args)->getKeysArray();
+			$argsValues = $scope->getType($args)->getValuesArray();
+			if ($argsKeys instanceof ConstantArrayType) {
+				foreach ($argsKeys->getValueTypes() as $index => $key) {
+					if ($key->getValue() !== 'raw') {
+						continue;
+					}
+					if ($argsValues->getValueTypes()[$index]->getValue()) {
+						$isRaw = TrinaryLogic::createYes();
+						break;
 					}
 				}
+				$isRaw = $isRaw->yes() ? $isRaw : TrinaryLogic::createNo();
 			}
 		}
-		if($isRawSwitcher) {
-			return new ArrayType(new StringType(), new MixedType());
+		if (empty($args)) {
+			$isRaw = TrinaryLogic::createNo();
 		}
 
-		return new StringType();
+		if ($isRaw->maybe()) {
+			return TypeCombinator::union(new ArrayType(new StringType(), new MixedType()), new StringType());
+		}
+		if ($isRaw->yes()) {
+			return new ArrayType(new StringType(), new MixedType());
+		}
+		if ($isRaw->no()) {
+			return new StringType();
+		}
+
+	}
+
+	private function isRawAttribute(ArrayItem $arrayItem): TrinaryLogic
+	{
+		$key = $arrayItem->key->value;
+		$value = $arrayItem->value->name->parts[0];
+		if ($key !== 'raw') {
+			return TrinaryLogic::createMaybe();
+		}
+		if ($value === 'true') {
+			return TrinaryLogic::createYes();
+		}
+		if ($value === 'false') {
+			return TrinaryLogic::createNo();
+		}
 	}
 }
