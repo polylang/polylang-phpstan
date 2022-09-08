@@ -11,7 +11,11 @@ $helperDirectory = dirname(__DIR__) . '/vendor/wpsyntex/polylang-phpstan';
 if (! is_dir($helperDirectory)) {
 	mkdir($helperDirectory, 0777, true);
 }
-copy(dirname(__DIR__) . '/extension.neon', $helperDirectory . '/extension.neon');
-copy(dirname(__DIR__) . '/bootstrap.php', $helperDirectory . '/bootstrap.php');
+if ( ! file_exists( $helperDirectory . '/extension.neon' ) ) {
+	copy(dirname(__DIR__) . '/extension.neon', $helperDirectory . '/extension.neon');
+}
+if ( ! file_exists( $helperDirectory . '/bootstrap.php' ) ) {
+	copy(dirname(__DIR__) . '/bootstrap.php', $helperDirectory . '/bootstrap.php');
+}
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
