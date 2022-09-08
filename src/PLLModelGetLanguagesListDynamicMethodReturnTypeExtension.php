@@ -45,7 +45,7 @@ class PLLModelGetLanguagesListDynamicMethodReturnTypeExtension implements Dynami
 		$argumentType = $scope->getType( $args[0]->value );
 
 		// Called with an argument that is not an array.
-		if ( ! $argumentType instanceof ConstantArrayType ) {
+		if ( ! $argumentType->isArray()->yes() ) {
 			return new ArrayType( new IntegerType(), new ObjectType( PLL_Language::class ) );
 		}
 
