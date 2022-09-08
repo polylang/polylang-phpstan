@@ -37,39 +37,66 @@ class PLLModelGetLanguagesListDynamicMethodReturnTypeExtension implements Dynami
 	public function getTypeFromMethodCall( MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope ): Type {
 		$args = $methodCall->getArgs();
 
-		// Called without arguments.
 		if ( count( $args ) === 0 ) {
+			// Called without arguments.
 			return new ArrayType( new IntegerType(), new ObjectType( PLL_Language::class ) );
 		}
 
 		$argumentType = $scope->getType( $args[0]->value );
 
-		// Called with an argument that is not an array.
 		if ( ! $argumentType->isArray()->yes() ) {
+			// Called with an argument that is not an array-like.
 			return new ArrayType( new IntegerType(), new ObjectType( PLL_Language::class ) );
 		}
 
-		foreach ( $argumentType->getKeyTypes() as $index => $key ) {
-			if ( ! $key instanceof ConstantStringType || $key->getValue() !== 'fields' ) {
-				continue;
+		if ( $argumentType instanceof IntersectionType && $argumentType->isIterable() ) {
+			$fieldsInst = new ConstantStringType( 'fields' );
+
+			foreach( $argumentType->getTypes() as $type ) {
+				if ( ! $type->hasOffsetValueType( $fieldsInst )->yes() ) {
+					continue;
+				}
+
+				$fieldsType = $type->getOffsetValueType( $fieldsInst );
+
+				if ( ! $fieldsType instanceof ConstantStringType ) {
+					// The 'field' argument is not a string.
+					return new ArrayType( new IntegerType(), new ObjectType( PLL_Language::class ) );
+				}
+
+				$fieldsValue = $fieldsType->getValue();
+				break;
 			}
-
-			$fieldsType = $argumentType->getValueTypes()[ $index ];
-
-			if ( ! $fieldsType instanceof ConstantStringType ) {
-				return new ArrayType( new IntegerType(), new ObjectType( PLL_Language::class ) );
-			}
-
-			$fields = $fieldsType->getValue();
-			break;
 		}
 
-		// Without 'fields' argument, or empty value.
-		if ( empty( $fields ) ) {
+		if ( ! isset( $fieldsValue ) && $argumentType instanceof ArrayType ) {
+			$argumentKeys = $argumentType->getKeysArray();
+
+			if ( $argumentKeys instanceof ConstantArrayType ) {
+				foreach ( $argumentKeys->getValueTypes() as $index => $key ) {
+					if ( $key->getValue() !== 'fields' ) {
+						continue;
+					}
+
+					$fieldsType = $argumentType->getValuesArray()->getValueTypes()[ $index ];
+
+					if ( ! $fieldsType instanceof ConstantStringType ) {
+						// The 'field' argument is not a string.
+						return new ArrayType( new IntegerType(), new ObjectType( PLL_Language::class ) );
+					}
+
+					$fieldsValue = $fieldsType->getValue();
+					break;
+				}
+			}
+		}
+
+		if ( empty( $fieldsValue ) ) {
+			// Without 'fields' argument, or empty value.
 			return new ArrayType( new IntegerType(), new ObjectType( PLL_Language::class ) );
 		}
 
-		switch ( $fields ) {
+		switch ( $fieldsValue ) {
 			case 'term_id':
 			case 'term_group':
 			case 'term_taxonomy_id':
