@@ -49,7 +49,7 @@ class PLLModelGetLanguagesListDynamicMethodReturnTypeExtension implements Dynami
 			return new ArrayType( new IntegerType(), new ObjectType( PLL_Language::class ) );
 		}
 
-		if ( $argumentType instanceof IntersectionType && $argumentType->isIterable() ) {
+		if ( $argumentType instanceof IntersectionType && $argumentType->isArray()->yes() ) {
 			$fieldsInst = new ConstantStringType( 'fields' );
 
 			foreach( $argumentType->getTypes() as $type ) {
