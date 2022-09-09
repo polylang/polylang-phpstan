@@ -15,33 +15,33 @@ $array = $array;
 $attributes = ['foo' => 'bar'];
 
 // Raw attribute set to true.
-assertType('array<string, mixed>', pll_the_languages($link, ['raw' => true]));
+assertType('array<string, mixed>', pll_the_languages(['raw' => true]));
 
-// Raw attribute set tot true with array_merge.
-assertType('array<string, mixed>', pll_the_languages($link, array_merge($attributes, ['raw' => true])));
+// Raw attribute set to true with array_merge.
+assertType('array<string, mixed>', pll_the_languages(array_merge($attributes, ['raw' => true])));
 
 // Raw attribute set to false.
-assertType('string', pll_the_languages($link, ['raw' => false]));
+assertType('string', pll_the_languages(['raw' => false]));
 
 // Raw attribute set tot false with array_merge.
-assertType('string', pll_the_languages($link, array_merge($attributes, ['raw' => false])));
+assertType('array<string, mixed>|string', pll_the_languages(array_merge($attributes, ['raw' => false])));
 
 // Without raw set.
-assertType('string', pll_the_languages($link, $attributes));
+assertType('string', pll_the_languages($attributes));
 
 // With empty array.
-assertType('string', pll_the_languages($link, []));
+assertType('string', pll_the_languages([]));
 
 // Default attributes.
-assertType('string', pll_the_languages($link));
+assertType('string', pll_the_languages());
 
 // Unkown attributes.
-assertType('array<string, mixed>|string', pll_the_languages($link, $array));
+assertType('array<string, mixed>|string', pll_the_languages($array));
 
 // With unkown variable merged.
 $args = array_merge( array( 'raw' => 1 ), $options );
-assertType('array<string, mixed>|string', pll_the_languages($link, $args));
+assertType('array<string, mixed>|string', pll_the_languages($args));
 
 // With raw attribute set to true outside.
 $array['raw'] = 1;
-assertType('array<string, mixed>', pll_the_languages($link, $array));
+assertType('array<string, mixed>', pll_the_languages($array));
