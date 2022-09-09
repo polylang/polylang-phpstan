@@ -4,18 +4,25 @@ services:
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 	-
+		class: WPSyntex\Polylang\PHPStan\SwitcherClassReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicMethodReturnTypeExtension
+	-
+		class: WPSyntex\Polylang\PHPStan\TheLanguagesFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+	-
 		class: WPSyntex\Polylang\PHPStan\PLLModelGetLanguagesListDynamicMethodReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
-
 includes:
 	- ../../szepeviktor/phpstan-wordpress/extension.neon
-
 parameters:
 	bootstrapFiles:
+		- %rootDir%/../../php-stubs/wordpress-stubs/wordpress-stubs.php
+		- %rootDir%/../../wpsyntex/polylang-stubs/polylang-stubs.php
 		- bootstrap.php
 	dynamicConstantNames:
 		- POLYLANG_VERSION
 		- PLL_ADMIN
 		- PLL_SETTINGS
-
