@@ -15,6 +15,12 @@ $array = $array;
 $args = ['fields' => 'slug'];
 
 assertType('array<int, string>', $model->get_languages_list(['fields' => 'slug']));
+
 assertType('array<int, string>', $model->get_languages_list($args));
+
 assertType('array<int, mixed>', $model->get_languages_list($array));
-assertType('array<int, string>', $model->get_languages_list(array_merge($array, ['fields' => 'slug'])));
+
+assertType('array<int, mixed>', $model->get_languages_list(array_merge($array, ['fields' => 'slug'])));
+
+$array['fields'] = 'slug';
+assertType('array<int, string>', $model->get_languages_list($array));
