@@ -3,6 +3,10 @@ services:
 		class: WPSyntex\Polylang\PHPStan\LanguageReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
+	-
+		class: WPSyntex\Polylang\PHPStan\PLLModelGetLanguagesListDynamicMethodReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicMethodReturnTypeExtension
 
 includes:
 	- ../../szepeviktor/phpstan-wordpress/extension.neon
