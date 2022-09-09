@@ -14,7 +14,7 @@ $array = $array;
 
 $args = ['fields' => 'slug'];
 
-// With 'fields' key set clearly.
+// With 'fields' key set explicitly.
 assertType('array<int, string>', $model->get_languages_list(['fields' => 'slug']));
 
 // With 'fields' key set in a variable.
