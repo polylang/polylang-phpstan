@@ -17,6 +17,7 @@ use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\IntegerType;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
@@ -93,7 +94,7 @@ class PLLModelGetLanguagesListDynamicMethodReturnTypeExtension implements Dynami
 
 		if ( empty( $fieldsValue ) ) {
 			// Without 'fields' argument, or empty value.
-			return new ArrayType( new IntegerType(), new ObjectType( PLL_Language::class ) );
+			return new ArrayType( new IntegerType(), new MixedType() );
 		}
 
 		switch ( $fieldsValue ) {
