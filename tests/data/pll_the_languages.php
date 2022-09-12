@@ -23,8 +23,8 @@ assertType('array<string, mixed>', pll_the_languages(array_merge($attributes, ['
 // Raw attribute set to false.
 assertType('string', pll_the_languages(['raw' => false]));
 
-// Raw attribute set tot false with array_merge.
-assertType('array<string, mixed>|string', pll_the_languages(array_merge($attributes, ['raw' => false])));
+// Raw attribute set to false with array_merge and variable with known values.
+assertType('string', pll_the_languages(array_merge($attributes, ['raw' => false])));
 
 // Without raw set.
 assertType('string', pll_the_languages($attributes));

@@ -9,6 +9,7 @@ use PHPStan\Type\DynamicFunctionReturnTypeExtension;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\Type;
+use PHPStan\Type\StringType;
 
 class TheLanguagesFunctionReturnTypeExtension implements DynamicFunctionReturnTypeExtension {
 	use GuessTypeFromSwitcherAttributes;
@@ -20,14 +21,15 @@ class TheLanguagesFunctionReturnTypeExtension implements DynamicFunctionReturnTy
 
 	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $funcCall, Scope $scope): Type
 	{
-		if (count($funcCall->getArgs()) === 0) {
-			return ParametersAcceptorSelector::selectFromArgs(
-				$scope,
-				$funcCall->getArgs(),
-				$functionReflection->getVariants()
-			)->getReturnType();
+		$args = $funcCall->getArgs();
+
+		if (count($args) === 0) {
+			// No attributes provided to the switcher, default type 'string'.
+			return new StringType();
 		}
 
-		return $this->guessType($funcCall, $scope);
+		$switcherAttributes = reset($args);
+
+		return $this->guessType($switcherAttributes, $scope);
 	}
 }
