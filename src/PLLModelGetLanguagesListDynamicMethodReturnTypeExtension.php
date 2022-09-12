@@ -74,6 +74,13 @@ class PLLModelGetLanguagesListDynamicMethodReturnTypeExtension implements Dynami
 			$argumentKeys = $argumentType->getKeysArray();
 
 			if ( $argumentKeys instanceof ConstantArrayType ) {
+				$argumentKeysTypes = $argumentKeys->getValueTypes();
+
+				if( empty( $argumentKeysTypes ) ) {
+					// An empty array is passed as parameter.
+					return new ArrayType( new IntegerType(), new ObjectType( PLL_Language::class ) );
+				}
+
 				foreach ( $argumentKeys->getValueTypes() as $index => $key ) {
 					if ( $key->getValue() !== 'fields' ) {
 						continue;
