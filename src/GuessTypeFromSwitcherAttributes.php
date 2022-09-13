@@ -4,6 +4,7 @@ namespace WPSyntex\Polylang\PHPStan;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\CallLike;
+use PhpParser\Node\Arg;
 use PHPStan\Analyser\Scope;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
@@ -16,18 +17,9 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\TypeCombinator;
 
 trait GuessTypeFromSwitcherAttributes {
-	private function guessType(CallLike $call, Scope $scope) : Type
+	private function guessType(Arg $args, Scope $scope) : Type
 	{
-		$args = [];
-
-		if (isset($call->getArgs()[1]) ) {
-			$args = $call->getArgs()[1]->value;
-		}
-
-		if (empty($args)) {
-			// No arguments provided to the switcher, default type 'string'.
-			return new StringType();
-		}
+		$args = $args->value;
 
 		$isRaw = TrinaryLogic::createMaybe();
 

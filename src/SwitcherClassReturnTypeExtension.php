@@ -9,6 +9,7 @@ use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\Type;
+use PHPStan\Type\StringType;
 
 class SwitcherClassReturnTypeExtension implements DynamicMethodReturnTypeExtension {
 	use GuessTypeFromSwitcherAttributes;
@@ -25,7 +26,9 @@ class SwitcherClassReturnTypeExtension implements DynamicMethodReturnTypeExtensi
 
 	public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type
 	{
-		if (count($methodCall->getArgs()) === 0) {
+		$args = $methodCall->getArgs();
+
+		if (count($args) === 0) {
 			return ParametersAcceptorSelector::selectFromArgs(
 				$scope,
 				$methodCall->getArgs(),
@@ -33,6 +36,11 @@ class SwitcherClassReturnTypeExtension implements DynamicMethodReturnTypeExtensi
 			)->getReturnType();
 		}
 
-		return $this->guessType($methodCall, $scope);
+		if(isset($args[1])) {
+			return $this->guessType($args[1], $scope);
+		}
+
+		// No attributes provided to the switcher, default type 'string'.
+		return new StringType();
 	}
 }

@@ -14,6 +14,12 @@ $array = $array;
 
 $args = ['fields' => 'slug'];
 
+// Without any argument.
+assertType('array<int, PLL_Language>', $model->get_languages_list());
+
+// With empty array.
+assertType('array<int, PLL_Language>', $model->get_languages_list([]));
+
 // With 'fields' key set explicitly.
 assertType('array<int, string>', $model->get_languages_list(['fields' => 'slug']));
 
