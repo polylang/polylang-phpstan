@@ -1,6 +1,14 @@
 services:
 	-
-		class: WPSyntex\Polylang\PHPStan\LanguageReturnTypeExtension
+		class: WPSyntex\Polylang\PHPStan\TheLanguagesFunctionReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+	-
+		class: WPSyntex\Polylang\PHPStan\PLLCurrentDefaultLanguageReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicFunctionReturnTypeExtension
+	-
+		class: WPSyntex\Polylang\PHPStan\PLLGetPostTermLanguageReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
 	-
@@ -8,11 +16,11 @@ services:
 		tags:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
 	-
-		class: WPSyntex\Polylang\PHPStan\TheLanguagesFunctionReturnTypeExtension
-		tags:
-			- phpstan.broker.dynamicFunctionReturnTypeExtension
-	-
 		class: WPSyntex\Polylang\PHPStan\PLLModelGetLanguagesListDynamicMethodReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicMethodReturnTypeExtension
+	-
+		class: WPSyntex\Polylang\PHPStan\PLLLanguageGetPropDynamicMethodReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
 includes:
