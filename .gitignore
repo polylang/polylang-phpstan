@@ -1,2 +1,9 @@
-vendor/
+# Directories
+/.vscode
+/vendor
+
+# Files
+.DS_Store
+.phpunit.result.cache
 composer.lock
+Thumbs.db
