@@ -38,10 +38,10 @@ assertType('string', $switcher->the_languages($link, []));
 // Default attributes.
 assertType('string', $switcher->the_languages($link));
 
-// Unkown attributes.
+// Unknown attributes.
 assertType('array<string, mixed>|string', $switcher->the_languages($link, $array));
 
-// With unkown variable merged.
+// With unknown variable merged.
 $args = array_merge( $array, array( 'raw' => 1 ) );
 assertType('array<string, mixed>|string', $switcher->the_languages($link, $args));
 
