@@ -13,7 +13,7 @@ use PHPStan\Type\TypeCombinator;
 
 class LanguageReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension {
 	public function isFunctionSupported( FunctionReflection $functionReflection ) : bool {
-		return in_array( $functionReflection->getName(), array( 'pll_current_language', 'pll_default_language' ), true );
+		return in_array( $functionReflection->getName(), [ 'pll_current_language', 'pll_default_language' ], true );
 	}
 
 	public function getTypeFromFunctionCall( FunctionReflection $functionReflection, FuncCall $functionCall, Scope $scope ) : Type {

@@ -16,12 +16,12 @@ assertType('null', $options->get('foo'));
 assertType('null', $options->get('media'));
 
 // With a boolean type option.
-foreach ( array( 'browser', 'hide_default', 'media_support', 'redirect_lang', 'rewrite' ) as $option_name ) {
+foreach ( [ 'browser', 'hide_default', 'media_support', 'redirect_lang', 'rewrite' ] as $option_name ) {
 	assertType('bool', $options->get($option_name));
 }
 
 // With a string type option.
-foreach ( array( 'default_lang', 'previous_version', 'version' ) as $option_name ) {
+foreach ( [ 'default_lang', 'previous_version', 'version' ] as $option_name ) {
 	assertType('string', $options->get($option_name));
 }
 
@@ -29,7 +29,7 @@ foreach ( array( 'default_lang', 'previous_version', 'version' ) as $option_name
 assertType('array<non-falsy-string, string>', $options->get('domains'));
 
 // With a list type option.
-foreach ( array( 'language_taxonomies', 'post_types', 'sync', 'taxonomies' ) as $option_name ) {
+foreach ( [ 'language_taxonomies', 'post_types', 'sync', 'taxonomies' ] as $option_name ) {
 	assertType('array<int, non-falsy-string>', $options->get($option_name));
 }
 

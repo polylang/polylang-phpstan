@@ -29,7 +29,7 @@ class OptionsGetDynamicMethodReturnTypeExtension implements DynamicMethodReturnT
 	}
 
 	public function isMethodSupported( MethodReflection $methodReflection ): bool {
-		return in_array( $methodReflection->getName(), array( 'get', 'reset', 'offsetGet' ), true );
+		return in_array( $methodReflection->getName(), [ 'get', 'reset', 'offsetGet' ], true );
 	}
 
 	public function getTypeFromMethodCall( MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope ): ?Type {
@@ -45,7 +45,7 @@ class OptionsGetDynamicMethodReturnTypeExtension implements DynamicMethodReturnT
 		}
 
 		// Called with a constant string type.
-		$returnType = array();
+		$returnType = [];
 
 		foreach ( $argumentType->getConstantStrings() as $constantString ) {
 			switch ( $constantString->getValue() ) {
@@ -113,10 +113,10 @@ class OptionsGetDynamicMethodReturnTypeExtension implements DynamicMethodReturnT
 
 	protected function getNonFalsyStringType(): Type {
 		return new IntersectionType(
-			array(
+			[
 				new StringType(),
 				new AccessoryNonFalsyStringType(),
-			)
+			]
 		);
 	}
 
