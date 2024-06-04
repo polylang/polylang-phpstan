@@ -129,7 +129,7 @@ class OptionsGetDynamicMethodReturnTypeExtension implements DynamicMethodReturnT
 	 * @return Type
 	 */
 	protected function getDefaultReturnType( string $option_name ): Type {
-		if ( ! defined( 'POLYLANG_PRO' ) || ! POLYLANG_PRO ) {
+		if ( ! defined( 'POLYLANG_PRO_PHPSTAN' ) || ! POLYLANG_PRO_PHPSTAN ) { // Constant specific to PHPStan in Polylang Pro.
 			return new NullType();
 		}
 
