@@ -35,11 +35,11 @@ assertType('string', pll_the_languages([]));
 // Default attributes.
 assertType('string', pll_the_languages());
 
-// Unkown attributes.
+// Unknown attributes.
 assertType('array<string, mixed>|string', pll_the_languages($array));
 
-// With unkown variable merged.
-$args = array_merge( array( 'raw' => 1 ), $options );
+// With unknown variable merged.
+$args = array_merge( [ 'raw' => 1 ], $options );
 assertType('array<string, mixed>|string', pll_the_languages($args));
 
 // With raw attribute set to true outside.

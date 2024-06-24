@@ -26,12 +26,12 @@ assertType('array<int, string>', $model->get_languages_list(['fields' => 'slug']
 // With 'fields' key set in a variable.
 assertType('array<int, string>', $model->get_languages_list($args));
 
-// With a variable containing unkown data.
+// With a variable containing unknown data.
 assertType('array<int, mixed>', $model->get_languages_list($array));
 
 // With array_merge() result passed as parameter.
 assertType('array<int, mixed>', $model->get_languages_list(array_merge($array, ['fields' => 'slug'])));
 
-// With 'fields' key set on top of variable containing unkown data.
+// With 'fields' key set on top of variable containing unknown data.
 $array['fields'] = 'slug';
 assertType('array<int, string>', $model->get_languages_list($array));

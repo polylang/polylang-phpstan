@@ -15,6 +15,10 @@ services:
 		class: WPSyntex\Polylang\PHPStan\PLLModelGetLanguagesListDynamicMethodReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
+	-
+		class: WPSyntex\Polylang\PHPStan\OptionsGetDynamicMethodReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicMethodReturnTypeExtension
 includes:
 	- ../../szepeviktor/phpstan-wordpress/extension.neon
 parameters:
