@@ -11,6 +11,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\Accessory\AccessoryArrayListType;
+use PHPStan\Type\Accessory\NonEmptyArrayType;
 use PHPStan\Type\Accessory\AccessoryNonFalsyStringType;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
@@ -143,13 +144,21 @@ class OptionsGetDynamicMethodReturnTypeExtension implements DynamicMethodReturnT
 			case 'machine_translation_enabled':
 				return new BooleanType();
 
+			case 'machine_translation_service':
+				return $this->getNonFalsyStringType();
+
 			case 'machine_translation_services':
-				return new ArrayType(
-					$this->getNonFalsyStringType(),
-					new ArrayType(
-						$this->getNonFalsyStringType(),
-						new StringType()
-					)
+				return new IntersectionType(
+					[
+						new ArrayType(
+							$this->getNonFalsyStringType(),
+							new ArrayType(
+								$this->getNonFalsyStringType(),
+								new StringType()
+							)
+						),
+						new NonEmptyArrayType(),
+					]
 				);
 
 			default:
