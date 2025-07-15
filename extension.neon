@@ -16,6 +16,10 @@ services:
 		tags:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
 	-
+		class: WPSyntex\Polylang\PHPStan\PLLModelLanguagesGetListDynamicMethodReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicMethodReturnTypeExtension
+	-
 		class: WPSyntex\Polylang\PHPStan\OptionsGetDynamicMethodReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
