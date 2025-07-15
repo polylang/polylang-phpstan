@@ -11,7 +11,7 @@ namespace WPSyntex\Polylang\PHPStan;
 use PLL_Model;
 use PHPStan\Reflection\MethodReflection;
 
-class PLLModelGetLanguagesListDynamicMethodReturnTypeExtension extends PLLModelLanguagesGetListDynamicMethodReturnTypeExtension {
+class PLLModelGetLanguagesListDynamicMethodReturnTypeExtension extends ModelLanguagesGetListDynamicMethodReturnTypeExtension {
 	public function getClass(): string {
 		return PLL_Model::class;
 	}

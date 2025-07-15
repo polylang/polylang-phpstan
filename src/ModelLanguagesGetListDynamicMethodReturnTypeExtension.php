@@ -26,7 +26,7 @@ use PHPStan\Type\UnionType;
 use PLL_Language;
 use WP_Syntex\Polylang\Model\Languages;
 
-class PLLModelLanguagesGetListDynamicMethodReturnTypeExtension implements DynamicMethodReturnTypeExtension {
+class ModelLanguagesGetListDynamicMethodReturnTypeExtension implements DynamicMethodReturnTypeExtension {
 	public function getClass(): string {
 		return Languages::class;
 	}
