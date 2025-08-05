@@ -1,0 +1,46 @@
+name: PHPUnit Tests
+
+on:
+  push:
+    branches: master
+    paths:
+      - '**.php'
+      - 'phpunit.xml.dist'
+      - '**.neon'
+      - 'composer.json'
+      - '.github/workflows/phpunit-tests.yml'
+  pull_request:
+    branches:
+      - master
+    paths:
+      - '**.php'
+      - 'phpunit.xml.dist'
+      - '**.neon'
+      - 'composer.json'
+      - '.github/workflows/phpunit-tests.yml'
+  workflow_dispatch:
+
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: [7.4, 8.4]
+
+    steps:
+      - name: Check out the source code
+        uses: actions/checkout@v4
+
+      - name: Set up PHP ${{ matrix.php-version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: none
+          php-version: ${{ matrix.php-version }}
+
+      - name: Install PHP Dependencies
+        uses: ramsey/composer-install@v3
+        with:
+          dependency-versions: 'highest'
+
+      - name: Run PHPUnit tests
+        run: composer test

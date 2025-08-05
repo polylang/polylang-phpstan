@@ -29,7 +29,7 @@ class DynamicReturnTypeExtensionTest extends \PHPStan\Testing\TypeInferenceTestC
 
 	public static function getAdditionalConfigFiles(): array
 	{
-		// path to your project's phpstan.neon, or extension.neon in case of custom extension packages
+		// phpstan.neon or extension.neon use relative paths, so we need to use a fake vendor directory regarding szepeviktor/phpstan-wordpress dependency.
 		return [dirname(__DIR__) . '/vendor/wpsyntex/polylang-phpstan/extension.neon'];
 	}
 }
