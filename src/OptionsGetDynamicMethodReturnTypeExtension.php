@@ -75,11 +75,9 @@ class OptionsGetDynamicMethodReturnTypeExtension implements DynamicMethodReturnT
 				case 'post_types':
 				case 'sync':
 				case 'taxonomies':
-					$returnType[] = AccessoryArrayListType::intersectWith(
-						new ArrayType(
-							new IntegerType(),
-							$this->getNonFalsyStringType()
-						)
+					$returnType[] = new ArrayType(
+						new IntegerType(),
+						$this->getNonFalsyStringType()
 					);
 					break;
 

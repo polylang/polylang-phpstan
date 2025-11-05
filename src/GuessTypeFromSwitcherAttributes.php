@@ -8,7 +8,6 @@ use PhpParser\Node\Arg;
 use PHPStan\Analyser\Scope;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
-use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\StringType;
@@ -28,7 +27,7 @@ trait GuessTypeFromSwitcherAttributes {
 			$argsKeys   = [];
 			$argsValues = [];
 
-			if ($argsType instanceof ArrayType) {
+			if ($argsType->isArray()->yes()) {
 				$argsKeys   = $argsType->getKeysArray();
 				$argsValues = $argsType->getValuesArray();
 			}
@@ -42,7 +41,7 @@ trait GuessTypeFromSwitcherAttributes {
 				}
 			}
 
-			if ($argsKeys instanceof ConstantArrayType) {
+			if ($argsKeys->isConstantArray()->yes()) {
 				foreach ($argsKeys->getValueTypes() as $index => $key) {
 					if ($key->getValue() !== 'raw') {
 						// Current argument is not 'raw' parameter.
