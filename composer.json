@@ -5,7 +5,7 @@
 	"homepage": "https://polylang.pro",
 	"type": "library",
 	"require": {
-		"php": "^7.4 || ^8.0",
+		"php": "^8.0",
 		"szepeviktor/phpstan-wordpress": "^2.0",
 		"wpsyntex/polylang-stubs": "dev-master"
 	},
