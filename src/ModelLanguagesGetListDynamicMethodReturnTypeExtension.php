@@ -11,7 +11,6 @@ namespace WPSyntex\Polylang\PHPStan;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
-use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\IntersectionType;
@@ -60,7 +59,7 @@ class ModelLanguagesGetListDynamicMethodReturnTypeExtension implements DynamicMe
 
 				$fieldsType = $type->getOffsetValueType( $fieldsInst );
 
-				if ( ! $fieldsType instanceof ConstantStringType ) {
+				if ( $fieldsType->isString()->no() ) {
 					// The 'field' argument is not a string.
 					return new ArrayType( new IntegerType(), new ObjectType( PLL_Language::class ) );
 				}
@@ -70,10 +69,10 @@ class ModelLanguagesGetListDynamicMethodReturnTypeExtension implements DynamicMe
 			}
 		}
 
-		if ( ! isset( $fieldsValue ) && $argumentType instanceof ArrayType ) {
+		if ( ! isset( $fieldsValue ) && $argumentType->isArray()->yes() ) {
 			$argumentKeys = $argumentType->getKeysArray();
 
-			if ( $argumentKeys instanceof ConstantArrayType ) {
+			if ( $argumentKeys->isConstantArray()->yes() ) {
 				$argumentKeysTypes = $argumentKeys->getValueTypes();
 
 				if( empty( $argumentKeysTypes ) ) {
@@ -88,7 +87,7 @@ class ModelLanguagesGetListDynamicMethodReturnTypeExtension implements DynamicMe
 
 					$fieldsType = $argumentType->getValuesArray()->getValueTypes()[ $index ];
 
-					if ( ! $fieldsType instanceof ConstantStringType ) {
+					if ( $fieldsType->isString()->no() ) {
 						// The 'field' argument is not a string.
 						return new ArrayType( new IntegerType(), new ObjectType( PLL_Language::class ) );
 					}
