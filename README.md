@@ -28,9 +28,9 @@ parameters:
     - vendor/wpsyntex/polylang-stubs/polylang-stubs.php
 ```
 
-Use WordPress stubs override.
+Opt-in for WordPress stubs override.
 
 ```yaml
   stubFiles:
-    - vendor/wpsyntex/polylang-stubs/polylang-stubs.php
+    - vendor/wpsyntex/polylang-phpstan/stubs/wordpress-override.php
 ```
