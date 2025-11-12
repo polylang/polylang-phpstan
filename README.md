@@ -27,3 +27,10 @@ parameters:
   bootstrapFiles:
     - vendor/wpsyntex/polylang-stubs/polylang-stubs.php
 ```
+
+Use WordPress stubs override.
+
+```yaml
+  stubFiles:
+    - vendor/wpsyntex/polylang-stubs/polylang-stubs.php
+```
