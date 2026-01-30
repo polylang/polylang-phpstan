@@ -14,7 +14,7 @@ if (! is_dir($helperDirectory)) {
 
 // Copy package to a fake vendor directory.
 copy(dirname(__DIR__) . '/extension.neon', $helperDirectory . '/extension.neon');
-copy(dirname(__DIR__) . '/test-extension.neon', $helperDirectory . '/test-extension.neon');
+copy(dirname(__DIR__) . '/tests/test-extension.neon', $helperDirectory . '/test-extension.neon');
 copy(dirname(__DIR__) . '/bootstrap.php', $helperDirectory . '/bootstrap.php');
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
