@@ -1,0 +1,3 @@
+parameters:
+	stubFiles:
+		- %rootDir%/../../wpsyntex/polylang-stubs/polylang-stubs.php
