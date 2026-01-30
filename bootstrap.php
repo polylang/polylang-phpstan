@@ -33,7 +33,7 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) ) {
 define( 'POLYLANG', 'Polylang' );
 define( 'POLYLANG_BASENAME', 'polylang/polylang.php' );
 define( 'POLYLANG_DIR', './' );
-define( 'POLYLANG_VERSION', '3.0' ); // Must also be defined as dynamic in config file.
+define( 'POLYLANG_VERSION', '3.8' ); // Must also be defined as dynamic in config file.
 define( 'PLL_COOKIE', 'pll_language' );
 define( 'PLL_LOCAL_DIR', './wp-content/polylang' );
 define( 'PLL_ADMIN', false ); // Must also be defined as dynamic in config file.

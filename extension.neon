@@ -27,9 +27,9 @@ includes:
 	- ../../szepeviktor/phpstan-wordpress/extension.neon
 parameters:
 	bootstrapFiles:
-		- %rootDir%/../../php-stubs/wordpress-stubs/wordpress-stubs.php
-		- %rootDir%/../../wpsyntex/polylang-stubs/polylang-stubs.php
 		- bootstrap.php
+	stubFiles:
+		- %rootDir%/../../php-stubs/wordpress-stubs/wordpress-stubs.php
 	dynamicConstantNames:
 		- POLYLANG_VERSION
 		- PLL_ADMIN
