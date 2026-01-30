@@ -21,12 +21,12 @@ composer require --dev wpsyntex/polylang-stubs
 
 ## Configuration
 
-#### Adding the extension
+### Adding the extension
 
 Include the extension and stubs in the PHPStan configuration file.
 
 > [!IMPORTANT]
-> Prior to version 2.1 inclusive, `polylang/polylang-stubs` is automatically loaded.
+> Prior to version 2.1 (included), `polylang/polylang-stubs` is automatically loaded.
 > Starting from version 2.2, it must be configured manually.
 
 ```yaml
@@ -37,7 +37,7 @@ parameters:
     - vendor/wpsyntex/polylang-stubs/polylang-stubs.php
 ```
 
-#### Opt in to WordPress stubs overrides
+### Opt in to WordPress stubs overrides
 
 The `stubs/wordpress-override.php` file provides corrected type definitions for specific WordPress functions that have imprecise or incorrect type hints in the standard WordPress stubs (currently `sanitize_key()`, `maybe_serialize()`, and `sanitize_text_field()`).
 
