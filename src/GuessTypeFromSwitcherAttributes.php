@@ -34,9 +34,11 @@ trait GuessTypeFromSwitcherAttributes {
 
 			if ($argsType instanceof IntersectionType && $argsType->isIterable()) {
 				// Let's look into each types to see if it contains 'raw' key.
-				foreach($argsType->getTypes() as $type) {
-					if ($type->hasOffsetValueType(new ConstantStringType('raw'))->yes()) {
-						$isRaw = $type->getOffsetValueType(new ConstantStringType('raw'))->getValue() ? TrinaryLogic::createYes() : TrinaryLogic::createNo();
+				$types = $argsType->getTypes();
+				foreach($types as $type) {
+					$rawKey = new ConstantStringType('raw');
+					if ($type->hasOffsetValueType($rawKey)->yes()) {
+						$isRaw = $type->getOffsetValueType($rawKey)->toBoolean()->isTrue() ? TrinaryLogic::createYes() : TrinaryLogic::createNo();
 					}
 				}
 			}
