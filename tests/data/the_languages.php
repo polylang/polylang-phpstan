@@ -41,10 +41,26 @@ assertType('string', $switcher->the_languages($link));
 // Unknown attributes.
 assertType('array<string, mixed>|string', $switcher->the_languages($link, $array));
 
-// With unknown variable merged.
+// With raw attribute set to true and merged into an array.
 $args = array_merge( $array, [ 'raw' => 1 ] );
 assertType('array<string, mixed>', $switcher->the_languages($link, $args));
+
+// With raw attribute set to true and merged with an array.
+$args = array_merge( [ 'raw' => true ], $array );
+assertType('array<string, mixed>|string', $switcher->the_languages($link, $args));
 
 // With raw attribute set to true outside.
 $array['raw'] = 1;
 assertType('array<string, mixed>', $switcher->the_languages($link, $array));
+
+// With raw attribute set to false outside.
+$array['raw'] = false;
+assertType('string', $switcher->the_languages($link, $array));
+
+// With raw attribute set to false and merged in an array.
+$args = array_merge( $array, [ 'raw' => false ] );
+assertType('string', $switcher->the_languages($link, $array));
+
+// With raw attribute set to false and merged with an array.
+$args = array_merge( [ 'raw' => false ], $array );
+assertType('string', $switcher->the_languages($link, $array));

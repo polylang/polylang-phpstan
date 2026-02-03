@@ -38,7 +38,7 @@ trait GuessTypeFromSwitcherAttributes {
 				foreach($types as $type) {
 					$rawKey = new ConstantStringType('raw');
 					if ($type->hasOffsetValueType($rawKey)->yes()) {
-						$isRaw = $type->getOffsetValueType($rawKey)->toBoolean()->isTrue() ? TrinaryLogic::createYes() : TrinaryLogic::createNo();
+						$isRaw = $type->getOffsetValueType($rawKey)->toBoolean()->isTrue();
 					}
 				}
 			}
