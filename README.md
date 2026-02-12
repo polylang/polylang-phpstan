@@ -33,7 +33,7 @@ Include the extension and stubs in the PHPStan configuration file.
 includes:
   - vendor/wpsyntex/polylang-phpstan/extension.neon
 parameters:
-  stubFiles:
+  scanFiles:
     - vendor/wpsyntex/polylang-stubs/polylang-stubs.php
 ```
 
