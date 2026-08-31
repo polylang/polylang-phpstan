@@ -3,6 +3,9 @@
 This package provides a [PHPStan](https://phpstan.org/) extension for [Polylang](https://wordpress.org/plugins/polylang/) and [Polylang Pro](https://polylang.pro).
 It should be used in combination with [Polylang Stubs](https://github.com/polylang/polylang-stubs/).
 
+> [!WARNING]
+> Currently blocked to WordPress Stubs 6.9.4 until we find a solution to the issues we get with 7.0+.
+
 ## Requirements
 
 - PHP 8+
