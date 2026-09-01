@@ -1,3 +1,6 @@
+includes:
+	- ../vendor/szepeviktor/phpstan-wordpress/extension.neon
+
 services:
 	-
 		class: WPSyntex\Polylang\PHPStan\LanguageReturnTypeExtension
@@ -23,15 +26,14 @@ services:
 		class: WPSyntex\Polylang\PHPStan\Rules\DeprecatedPllSwitcherRule
 		tags:
 			- phpstan.rules.rule
-includes:
-	- ../../szepeviktor/phpstan-wordpress/extension.neon
+
 parameters:
 	bootstrapFiles:
-		- bootstrap.php
+		- ../bootstrap.php
 	stubFiles:
-		- %rootDir%/../../php-stubs/wordpress-stubs/wordpress-stubs.php
+		- ../vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
 	scanFiles:
-		- stubs/pll-switcher-deprecated.php
+		- ../stubs/pll-switcher-deprecated.php
 	dynamicConstantNames:
 		- POLYLANG_VERSION
 		- PLL_ADMIN
