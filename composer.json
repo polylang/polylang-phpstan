@@ -6,9 +6,11 @@
 	"type": "library",
 	"require": {
 		"php": "^8.0",
+		"phpstan/phpstan": "^2.0",
 		"szepeviktor/phpstan-wordpress": "^2.0"
 	},
 	"require-dev": {
+		"phpstan/phpstan-strict-rules": "^2.0",
 		"phpunit/phpunit": "^9",
 		"wpsyntex/polylang-stubs": "dev-master"
 	},
@@ -18,6 +20,7 @@
 		}
 	},
 	"scripts": {
-		"test":"vendor/bin/phpunit -d memory_limit=1G"
+		"test": "vendor/bin/phpunit -d memory_limit=1G",
+		"stan": "vendor/bin/phpstan analyse src/GuessTypeFromSwitcherArgs.php src/TheLanguagesFunctionReturnTypeExtension.php --memory-limit=512M"
 	}
 }

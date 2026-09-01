@@ -2,34 +2,27 @@
 
 namespace WPSyntex\Polylang\PHPStan;
 
-use WPSyntex\Polylang\PHPStan\GuessTypeFromSwitcherAttributes;
 use PhpParser\Node\Expr\FuncCall;
+use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\DynamicFunctionReturnTypeExtension;
-use PHPStan\Reflection\ParametersAcceptorSelector;
-use PHPStan\Analyser\Scope;
 use PHPStan\Type\Type;
-use PHPStan\Type\StringType;
+use PHPStan\Type\VoidType;
 
 class TheLanguagesFunctionReturnTypeExtension implements DynamicFunctionReturnTypeExtension {
-	use GuessTypeFromSwitcherAttributes;
+	use GuessTypeFromSwitcherArgs;
 
-	public function isFunctionSupported(FunctionReflection $functionReflection): bool
-	{
-		return $functionReflection->getName() === 'pll_the_languages';
+	public function isFunctionSupported( FunctionReflection $functionReflection ): bool {
+		return 'pll_the_languages' === $functionReflection->getName();
 	}
 
-	public function getTypeFromFunctionCall(FunctionReflection $functionReflection, FuncCall $funcCall, Scope $scope): Type
-	{
+	public function getTypeFromFunctionCall( FunctionReflection $functionReflection, FuncCall $funcCall, Scope $scope ): Type {
 		$args = $funcCall->getArgs();
 
-		if (count($args) === 0) {
-			// No attributes provided to the switcher, default type 'string'.
-			return new StringType();
+		if ( 0 === count( $args ) ) {
+			return new VoidType();
 		}
 
-		$switcherAttributes = reset($args);
-
-		return $this->guessType($switcherAttributes, $scope);
+		return $this->guessPllTheLanguagesReturnType( reset( $args ), $scope );
 	}
 }
