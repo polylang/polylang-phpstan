@@ -24,7 +24,11 @@ class OptionTypes {
 	private bool $proEnabled;
 
 	public function __construct( bool $proEnabled = false ) {
-		$this->proEnabled = $proEnabled || ( defined( 'POLYLANG_PRO_PHPSTAN' ) && POLYLANG_PRO_PHPSTAN );
+		$this->proEnabled = $proEnabled;
+	}
+
+	private function isProEnabled(): bool {
+		return $this->proEnabled || ( defined( 'POLYLANG_PRO_PHPSTAN' ) && POLYLANG_PRO_PHPSTAN );
 	}
 
 	/**
@@ -90,7 +94,7 @@ class OptionTypes {
 	}
 
 	private function getProTypeForKey( string $key ): ?Type {
-		if ( ! $this->proEnabled ) {
+		if ( ! $this->isProEnabled() ) {
 			return null;
 		}
 
