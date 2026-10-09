@@ -1,0 +1,29 @@
+includes:
+	- ../vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+services:
+	-
+		class: WPSyntex\Polylang\PHPStan\OptionTypes
+		arguments:
+			proEnabled: true
+	-
+		class: WPSyntex\Polylang\PHPStan\OptionsGetDynamicMethodReturnTypeExtension
+		arguments:
+			optionTypes: @WPSyntex\Polylang\PHPStan\OptionTypes
+		tags:
+			- phpstan.broker.dynamicMethodReturnTypeExtension
+	-
+		class: WPSyntex\Polylang\PHPStan\OptionsOffsetExpressionTypeResolverExtension
+		arguments:
+			optionTypes: @WPSyntex\Polylang\PHPStan\OptionTypes
+		tags:
+			- phpstan.broker.expressionTypeResolverExtension
+
+parameters:
+	tmpDir: %currentWorkingDirectory%/tests/tmp/phpstan-options-pro
+	bootstrapFiles:
+		- ../bootstrap.php
+	stubFiles:
+		- ../vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
+	scanDirectories:
+		- ../../polylang/src/Options

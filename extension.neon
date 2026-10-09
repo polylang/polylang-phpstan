@@ -16,9 +16,19 @@ services:
 		tags:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
 	-
+		class: WPSyntex\Polylang\PHPStan\OptionTypes
+	-
 		class: WPSyntex\Polylang\PHPStan\OptionsGetDynamicMethodReturnTypeExtension
+		arguments:
+			optionTypes: @WPSyntex\Polylang\PHPStan\OptionTypes
 		tags:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
+	-
+		class: WPSyntex\Polylang\PHPStan\OptionsOffsetExpressionTypeResolverExtension
+		arguments:
+			optionTypes: @WPSyntex\Polylang\PHPStan\OptionTypes
+		tags:
+			- phpstan.broker.expressionTypeResolverExtension
 	-
 		class: WPSyntex\Polylang\PHPStan\Rules\DeprecatedPllSwitcherRule
 		tags:
@@ -36,3 +46,4 @@ parameters:
 		- POLYLANG_VERSION
 		- PLL_ADMIN
 		- PLL_SETTINGS
+		- POLYLANG_PRO_PHPSTAN
