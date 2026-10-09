@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace WPSyntex\Polylang\PHPStan\Tests;
 
-class DynamicReturnTypeExtensionTest extends \PHPStan\Testing\TypeInferenceTestCase {
+class OptionsReturnTypeExtensionTest extends \PHPStan\Testing\TypeInferenceTestCase {
 	/**
 	 * @return iterable<mixed>
 	 */
 	public function dataFileAsserts(): iterable {
-		yield from $this->gatherAssertTypes( __DIR__ . '/data/pll_the_languages.php' );
-		yield from $this->gatherAssertTypes( __DIR__ . '/data/switcher.php' );
-		yield from $this->gatherAssertTypes( __DIR__ . '/data/get_languages_list.php' );
+		yield from $this->gatherAssertTypes( __DIR__ . '/data/options_get.php' );
+		yield from $this->gatherAssertTypes( __DIR__ . '/data/options_offset.php' );
 	}
 
 	/**
@@ -24,8 +23,7 @@ class DynamicReturnTypeExtensionTest extends \PHPStan\Testing\TypeInferenceTestC
 
 	public static function getAdditionalConfigFiles(): array {
 		return [
-			__DIR__ . '/phpstan.neon',
-			__DIR__ . '/test-extension.neon',
+			__DIR__ . '/options-phpstan.neon',
 		];
 	}
 }
