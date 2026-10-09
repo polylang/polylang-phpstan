@@ -2,7 +2,14 @@
 /**
  * PHPStan types for Polylang Options keys.
  *
- * Mirrors polylang/src/Options/Registry.php (and Pro registry when Pro mode is enabled).
+ * Keep in sync with:
+ * - polylang/src/Options/Registry::OPTIONS (free keys)
+ * - polylang-pro/src/Options/Registry::OPTIONS (pro keys, when POLYLANG_PRO_PHPSTAN is true)
+ *
+ * Value shapes follow each Business option class (primitives and @phpstan-type aliases).
+ * Unknown keys resolve to null (not mixed). Legacy `language_taxonomies` is typed but not in Registry.
+ *
+ * @see \WPSyntex\Polylang\PHPStan\Tests\OptionTypesRegistrySyncTest
  */
 
 declare(strict_types=1);

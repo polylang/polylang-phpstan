@@ -20,9 +20,10 @@ services:
 			- phpstan.broker.expressionTypeResolverExtension
 
 parameters:
+	tmpDir: %currentWorkingDirectory%/tests/tmp/phpstan-options-pro
 	bootstrapFiles:
 		- ../bootstrap.php
 	stubFiles:
 		- ../vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
 	scanDirectories:
-		- ../../../polylang/src/Options
+		- ../../polylang/src/Options

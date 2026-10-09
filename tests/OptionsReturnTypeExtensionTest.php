@@ -11,6 +11,7 @@ class OptionsReturnTypeExtensionTest extends \PHPStan\Testing\TypeInferenceTestC
 	public function dataFileAsserts(): iterable {
 		yield from $this->gatherAssertTypes( __DIR__ . '/data/options_get.php' );
 		yield from $this->gatherAssertTypes( __DIR__ . '/data/options_offset.php' );
+		yield from $this->gatherAssertTypes( __DIR__ . '/data/options_edge_cases.php' );
 	}
 
 	/**
