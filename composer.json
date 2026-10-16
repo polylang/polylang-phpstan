@@ -10,7 +10,8 @@
 		"szepeviktor/phpstan-wordpress": "^2.0"
 	},
 	"require-dev": {
-		"phpstan/phpstan-strict-rules": "^2.0",
+		"phpstan/phpstan": "~2.2.0",
+		"phpstan/phpstan-strict-rules": "~2.0.0",
 		"phpunit/phpunit": "^9",
 		"wpsyntex/polylang-stubs": "dev-master"
 	},
