@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace WPSyntex\Polylang\PHPStan;
 
 use PHPStan\Type\Accessory\AccessoryNonFalsyStringType;
+use PHPStan\Type\Accessory\NonEmptyArrayType;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\IntegerRangeType;
@@ -119,12 +120,17 @@ class OptionTypes {
 				return $this->getNonFalsyStringType();
 
 			case 'machine_translation_services':
-				return new ArrayType(
-					$this->getNonFalsyStringType(),
-					new ArrayType(
-						$this->getNonFalsyStringType(),
-						new StringType()
-					)
+				return new IntersectionType(
+					[
+						new ArrayType(
+							$this->getNonFalsyStringType(),
+							new ArrayType(
+								$this->getNonFalsyStringType(),
+								new StringType()
+							)
+						),
+						new NonEmptyArrayType(),
+					]
 				);
 
 			default:
