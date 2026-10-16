@@ -1,6 +1,7 @@
 # Directories
 /.vscode
 /vendor
+/tests/tmp
 
 # Files
 .DS_Store

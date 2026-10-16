@@ -68,3 +68,30 @@ Direct usage of `WP_Syntex\Polylang\Switcher\Switcher` is typed from Polylang st
 - `polylang.deprecatedSwitcherMethod` on `PLL_Switcher::the_languages()`
 
 Migrate to `pll_the_languages()` or to `WP_Syntex\Polylang\Switcher\Switcher`.
+
+## Options typing (Polylang 3.7+)
+
+Polylang 3.7+ stores settings in `WP_Syntex\Polylang\Options\Options`, which implements `ArrayAccess<non-falsy-string, mixed>`. Without this extension, `$options['key']` and `$options->get( 'key' )` stay `mixed` even for registered schema keys.
+
+This extension infers per-key value types when the key is a constant string, for both bracket access and `get()` / `offsetGet()`:
+
+```php
+$version = $options['version']; // string
+$domains = $options->get( 'domains' ); // array<non-falsy-string, string>
+```
+
+Unknown keys infer `null` (not `mixed`).
+
+### Polylang Pro options
+
+Pro-only keys (`media`, `machine_translation_enabled`, `machine_translation_service`, `machine_translation_services`) are typed only when `POLYLANG_PRO_PHPSTAN` is `true`. Define it in your PHPStan bootstrap file (as in Polylang Pro’s `tests/phpstan/phpstan-bootstrap.php`) and list it under `parameters.dynamicConstantNames` in `extension.neon` (already included when you use this package’s extension).
+
+```php
+define( 'POLYLANG_PRO_PHPSTAN', true );
+```
+
+### Known limitations
+
+- Unregistered or raw database keys under Polylang’s option storage are not typed.
+- `array_combine( $options['post_types'], $options['post_types'] )` is inferred as `array<non-falsy-string, non-falsy-string>` by PHPStan 2 when both operands share the same list type; older PHPStan versions may still need a `@phpstan-var` on the result.
+- `foreach ( $options['domains'] as $lang => $domain )` infers map key and value types when iterating the option array directly (without casting to `(array)`).

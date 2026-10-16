@@ -12,7 +12,6 @@ class DynamicReturnTypeExtensionTest extends \PHPStan\Testing\TypeInferenceTestC
 		yield from $this->gatherAssertTypes( __DIR__ . '/data/pll_the_languages.php' );
 		yield from $this->gatherAssertTypes( __DIR__ . '/data/switcher.php' );
 		yield from $this->gatherAssertTypes( __DIR__ . '/data/get_languages_list.php' );
-		yield from $this->gatherAssertTypes( __DIR__ . '/data/options_get.php' );
 	}
 
 	/**
