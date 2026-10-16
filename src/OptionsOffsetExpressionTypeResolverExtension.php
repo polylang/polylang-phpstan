@@ -33,14 +33,14 @@ class OptionsOffsetExpressionTypeResolverExtension implements ExpressionTypeReso
 			return null;
 		}
 
-		$dimType = $scope->getType( $expr->dim );
-		if ( count( $dimType->getConstantStrings() ) === 0 ) {
+		$constantStrings = $scope->getType( $expr->dim )->getConstantStrings();
+		if ( count( $constantStrings ) === 0 ) {
 			return null;
 		}
 
 		$returnTypes = [];
 
-		foreach ( $dimType->getConstantStrings() as $constantString ) {
+		foreach ( $constantStrings as $constantString ) {
 			$returnTypes[] = $this->optionTypes->getTypeForKeyOrNull( $constantString->getValue() );
 		}
 

@@ -34,17 +34,17 @@ class OptionsGetDynamicMethodReturnTypeExtension implements DynamicMethodReturnT
 			return null;
 		}
 
-		$argumentType = $scope->getType( $methodCall->getArgs()[0]->value );
+		$constantStrings = $scope->getType( $methodCall->getArgs()[0]->value )->getConstantStrings();
 
 		// When called with a type that isn't a constant string, return default return type.
-		if ( count( $argumentType->getConstantStrings() ) === 0 ) {
+		if ( count( $constantStrings ) === 0 ) {
 			return null;
 		}
 
 		// Called with a constant string type.
 		$returnType = [];
 
-		foreach ( $argumentType->getConstantStrings() as $constantString ) {
+		foreach ( $constantStrings as $constantString ) {
 			$returnType[] = $this->optionTypes->getTypeForKeyOrNull( $constantString->getValue() );
 		}
 
